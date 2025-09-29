@@ -1,3 +1,4 @@
+#Editado por: Gabriel Cruz el 29/09/2025
 # Importar módulos
 Import-Module .\ModuloIPremotas.psm1
 Import-Module .\ModuloForense.psm1
