@@ -109,3 +109,49 @@ Ideal para mantener la seguridad y control de cuentas y servicios en tu sistema.
    ```bash
    python verificar_correo.py correo@example.com
 
+## 📂 Actividad FASE (Actualizado) II: Verificación de cuentas comprometidas
+📖 Descripción
+
+verificar_correo.py es un script en Python que permite consultar si una cuenta de correo ha sido comprometida usando la API de Have I Been Pwned.
+
+El script automatiza la consulta de brechas de seguridad y genera reportes en formato CSV para análisis posterior.
+
+⚙️ Funcionalidades
+
+Verificación de correo electrónico 📧
+Consulta si un correo ha aparecido en brechas de seguridad conocidas.
+
+Detalles de las brechas 🔒
+Incluye información como:
+
+Nombre de la brecha
+
+Dominio afectado
+
+Fecha de la brecha
+
+Datos comprometidos
+
+Breve descripción
+
+Control de consultas ⏱️
+Espera 10 segundos entre consultas detalladas para cumplir con las restricciones de la API.
+
+🚀 Uso
+
+Crear el archivo apikey.txt en la misma carpeta que el script.
+
+Debe contener tu API key de Have I Been Pwned en una sola línea.
+
+Ejecutar el script desde la terminal:
+
+python verificar_correo.py correo@example.com
+
+📂 Archivos generados
+
+registro.log → Registro de consultas y errores de ejecución.
+
+reporte.csv → Detalle de brechas encontradas (solo se genera si hay brechas).
+
+Nota: Si no se encuentran brechas para un correo, no se genera reporte.csv.
+
