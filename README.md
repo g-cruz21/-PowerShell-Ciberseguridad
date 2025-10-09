@@ -1,157 +1,49 @@
-# -PowerShell-Ciberseguridad
-## 📂 Actividad 1 – Módulo de PowerShell para tareas forenses en Windows
+# Verificador de correos comprometidos – Have I Been Pwned
 
-### 🎯 Objetivo
-El objetivo principal de esta actividad fue desarrollar un **módulo de PowerShell** que automatizara tres tareas forenses esenciales en sistemas Windows personales.  
-El proyecto se centró en la **recopilación, correlación y documentación de evidencia digital**, aplicando buenas prácticas de scripting y desarrollo modular.
+Este script permite verificar si una cuenta de correo electrónico ha sido comprometida en brechas de seguridad conocidas, utilizando la API oficial de Have I Been Pwned.
 
-### 🔧 Scripts incluidos
-- `Forense.psm1` → Módulo de PowerShell con funciones forenses.  
-- `Forense.psd1` → Archivo de manifiesto del módulo.  
-- `Main.ps1` → Script principal con un menú interactivo para invocar las funciones.  
-- **Reportes** en formatos `.csv`, `.html` y `.xml`.  
+## Requisitos
+- Python 3.8+
+- API key válida
+- Conexión a internet
 
-### 🛠️ Tareas automatizadas
-1. **Extracción de eventos relevantes del Visor de Eventos**
-   - Uso de `Get-WinEvent` para filtrar registros por tipo y fecha.  
-   - Exportación de eventos a CSV/HTML/XML.  
-   - Identificación de actividad sospechosa (intentos de inicio de sesión fallidos, cambios no autorizados).  
+## Instalación
+```bash
+pip install -r requirements.txt```
+## Uso
 
-2. **Correlación de procesos activos con conexiones de red**
-   - Listado de procesos (`Get-Process`).  
-   - Identificación de conexiones (`Get-NetTCPConnection`, `netstat`).  
-   - Correlación de puertos abiertos con procesos.  
-   - Detección de procesos sospechosos sin firma digital o en rutas no confiables.  
+Ejecuta el script desde la terminal, indicando el correo a verificar y opcionalmente el nombre del archivo CSV de salida:
 
-3. **Investigación de direcciones IP remotas con AbuseIPDB**
-   - Extracción de IPs detectadas en conexiones activas.  
-   - Consulta de reputación usando `Invoke-RestMethod` y la API de AbuseIPDB.  
-   - Clasificación de IPs según nivel de riesgo.  
+```bash
+python verificar_correo.py correo@example.com -o salida.csv```
 
-### 📘 Aprendizajes
-- Uso avanzado de **cmdlets forenses en PowerShell** (`Get-WinEvent`, `Get-Process`, `Get-NetTCPConnection`).  
-- Diseño de scripts **modulares y documentados** con `.psm1` y `.psd1`.  
-- Manejo de **APIs externas** desde PowerShell.  
-- Generación de reportes forenses claros y reutilizables.
+## Archivos generados
 
-- # 🛡️ AuditoriaBasica - Módulo de PowerShell
+- `reporte.csv`: contiene los detalles de hasta 3 brechas encontradas para el correo consultado.
+- `registro.log`: archivo de registro con información de cada consulta realizada y errores detectados.
+- `apikey.txt`: archivo local que almacena la API key ingresada por el usuario (no debe subirse a GitHub).
+- `requirements.txt`: archivo generado automáticamente con las dependencias del proyecto.
 
-## 📖 Descripción
-`AuditoriaBasica` es un **módulo de PowerShell** diseñado para realizar auditorías básicas en sistemas Windows. Permite:
+## Estructura del proyecto
 
-- Detectar **usuarios locales inactivos**.
-- Listar **servicios externos en ejecución**.  
+```plaintext
+verificar_correo.py
+apikey.txt
+registro.log
+reporte.csv
+requirements.txt
+README.md```
 
-Ideal para mantener la seguridad y control de cuentas y servicios en tu sistema.
+## Créditos
 
----
+Desarrollado por **[Angel Gabriel Cruz Velazquez]**  
+Materia: *Programación para Ciberseguridad*  
+Grupo: *[061]*
 
-## 📂 Actividad 2
-- **`AuditoriaBasica.psm1`** – Módulo con funciones:
-  - `Obtener-UsuariosInactivos`: Encuentra cuentas locales habilitadas que nunca han iniciado sesión.
-  - `Obtener-ServiciosExternos`: Lista servicios en ejecución que no pertenecen explícitamente a Windows.
-- **`AuditoriaBasica.psd1`** – Manifiesto del módulo (versión, autor, compatibilidad).
-- **`Principal.ps1`** – Script principal interactivo que genera reportes en **CSV** y **HTML**.
+## Licencia
 
----
+Este proyecto se distribuye con fines educativos. El uso de la API de Have I Been Pwned está sujeto a sus [términos de servicio](https://haveibeenpwned.com/API/v3#AcceptableUse).
 
-## ⚙️ Funcionalidades
-1. **Auditoría de usuarios** 👤  
-   Identifica cuentas locales inactivas que podrían representar un riesgo de seguridad.
-2. **Detección de servicios externos** 🖥️  
-   Muestra software de terceros corriendo en segundo plano.
-3. **Generación de reportes** 📊  
-   - CSV para usuarios inactivos (`users_inac.csv` en el escritorio).  
-   - HTML para servicios externos (`serv_e.html` en el escritorio).
+## Contacto
 
----
-
-## 🚀 Uso
-
-1. **Abrir PowerShell como administrador.**
-2. **Crear la carpeta del módulo e instalarlo:**
-   ```powershell
-   $moduloPath = "C:\Program Files\WindowsPowerShell\Modules\AuditoriaBasica"
-   New-Item -Path $moduloPath -ItemType Directory
-   Set-Location $moduloPath
-
-
-   ---
-
-## 📂 Actividad FASE II: Verificación de cuentas comprometidas
-
-- **`verificar_correo.py`** – Script en Python que verifica si una cuenta de correo ha sido comprometida usando la API de **Have I Been Pwned**.
-
----
-
-## ⚙️ Funcionalidades
-1. **Verificación de correo electrónico** 📧  
-   Consulta si un correo ha aparecido en brechas de seguridad conocidas.
-2. **Detalles de las brechas** 🔒  
-   Muestra información como:
-   - Nombre de la brecha
-   - Dominio afectado
-   - Fecha de la brecha
-   - Datos comprometidos
-   - Breve descripción
-3. **Control de consultas** ⏱️  
-   Espera 10 segundos entre consultas para cumplir con las restricciones de la API.
-
----
-
-## 🚀 Uso
-
-1. **Crear el archivo `apikey.txt`** en la misma carpeta que el script.  
-   - Debe contener tu **API key de Have I Been Pwned** en una sola línea.  
-   
-2. Ejecutar el script desde la terminal:
-
-   ```bash
-   python verificar_correo.py correo@example.com
-
-## 📂 Actividad FASE (Actualizado) II: Verificación de cuentas comprometidas
-📖 Descripción
-
-verificar_correo.py es un script en Python que permite consultar si una cuenta de correo ha sido comprometida usando la API de Have I Been Pwned.
-
-El script automatiza la consulta de brechas de seguridad y genera reportes en formato CSV para análisis posterior.
-
-⚙️ Funcionalidades
-
-Verificación de correo electrónico 📧
-Consulta si un correo ha aparecido en brechas de seguridad conocidas.
-
-Detalles de las brechas 🔒
-Incluye información como:
-
-Nombre de la brecha
-
-Dominio afectado
-
-Fecha de la brecha
-
-Datos comprometidos
-
-Breve descripción
-
-Control de consultas ⏱️
-Espera 10 segundos entre consultas detalladas para cumplir con las restricciones de la API.
-
-🚀 Uso
-
-Crear el archivo apikey.txt en la misma carpeta que el script.
-
-Debe contener tu API key de Have I Been Pwned en una sola línea.
-
-Ejecutar el script desde la terminal:
-
-python verificar_correo.py correo@example.com
-
-📂 Archivos generados
-
-registro.log → Registro de consultas y errores de ejecución.
-
-reporte.csv → Detalle de brechas encontradas (solo se genera si hay brechas).
-
-Nota: Si no se encuentran brechas para un correo, no se genera reporte.csv.
-
+Para dudas técnicas o sugerencias, puedes dejar comentarios en el repositorio de GitHub.
