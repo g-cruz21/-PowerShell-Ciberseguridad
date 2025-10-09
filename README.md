@@ -74,3 +74,38 @@ Ideal para mantener la seguridad y control de cuentas y servicios en tu sistema.
    $moduloPath = "C:\Program Files\WindowsPowerShell\Modules\AuditoriaBasica"
    New-Item -Path $moduloPath -ItemType Directory
    Set-Location $moduloPath
+
+
+   ---
+
+## 📂 Actividad FASE II: Verificación de cuentas comprometidas
+
+- **`verificar_correo.py`** – Script en Python que verifica si una cuenta de correo ha sido comprometida usando la API de **Have I Been Pwned**.
+
+---
+
+## ⚙️ Funcionalidades
+1. **Verificación de correo electrónico** 📧  
+   Consulta si un correo ha aparecido en brechas de seguridad conocidas.
+2. **Detalles de las brechas** 🔒  
+   Muestra información como:
+   - Nombre de la brecha
+   - Dominio afectado
+   - Fecha de la brecha
+   - Datos comprometidos
+   - Breve descripción
+3. **Control de consultas** ⏱️  
+   Espera 10 segundos entre consultas para cumplir con las restricciones de la API.
+
+---
+
+## 🚀 Uso
+
+1. **Crear el archivo `apikey.txt`** en la misma carpeta que el script.  
+   - Debe contener tu **API key de Have I Been Pwned** en una sola línea.  
+   
+2. Ejecutar el script desde la terminal:
+
+   ```bash
+   python verificar_correo.py correo@example.com
+
